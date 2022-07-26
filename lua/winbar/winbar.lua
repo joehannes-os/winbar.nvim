@@ -9,19 +9,6 @@ local hl_winbar_file = 'WinBarFile'
 local hl_winbar_symbols = 'WinBarSymbols'
 local hl_winbar_file_icon = 'WinBarFileIcon'
 
-local winbar_mode = function()
-    -- if not f.isempty(value) and f.get_buf_option('mod') then
-    --     local mod = '%#LineNr#' .. opts.editor_state .. '%*'
-    --     if gps_added then
-    --         value = value .. ' ' .. mod
-    --     else
-    --         value = value .. mod
-    --     end
-    -- end
-
-    -- value = value .. '%{%v:lua.winbar_gps()%}'
-end
-
 local winbar_file = function()
     local file_path = vim.fn.expand('%:~:.:h')
     local filename = vim.fn.expand('%:t')
@@ -59,7 +46,8 @@ local winbar_file = function()
             end)
 
             for i = 1, #file_path_list do
-                value = value .. '%#' .. hl_winbar_path .. '#' .. file_path_list[i] .. ' ' .. opts.icons.seperator .. ' %*'
+                value = value ..
+                    '%#' .. hl_winbar_path .. '#' .. file_path_list[i] .. ' ' .. opts.icons.seperator_file .. ' %*'
             end
         end
         value = value .. file_icon
@@ -70,14 +58,14 @@ local winbar_file = function()
 
 end
 
-local _, gps = pcall(require, 'nvim-gps')
+local _, gps = pcall(require, 'nvim-navic')
 local winbar_gps = function()
     local status_ok, gps_location = pcall(gps.get_location, {})
     local value = ''
 
     if status_ok and gps.is_available() and gps_location ~= 'error' and not f.isempty(gps_location) then
         value = '%#' .. hl_winbar_symbols .. '# ' .. opts.icons.seperator .. ' %*'
-        value = value .. '%#' .. hl_winbar_symbols .. '#'  .. gps_location .. '%*'
+        value = value .. '%#' .. hl_winbar_symbols .. '#' .. gps_location .. '%*'
     end
 
     return value
