@@ -72,8 +72,8 @@ local winbar_gps = function()
 end
 
 local excludes = function()
-    if vim.tbl_contains(opts.exclude_filetype, vim.bo.filetype) then
-        -- vim.opt_local.winbar = nil
+    if vim.tbl_contains(opts.exclude_filetype, vim.bo.filetype) or not gps.is_available() then
+        vim.opt_local.winbar = nil
         return true
     end
 
