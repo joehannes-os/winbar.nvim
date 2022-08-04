@@ -73,7 +73,7 @@ end
 
 local excludes = function()
     if vim.tbl_contains(opts.exclude_filetype, vim.bo.filetype) then
-        vim.opt_local.winbar = nil
+        -- vim.opt_local.winbar = nil
         return true
     end
 
@@ -84,19 +84,19 @@ M.init = function()
     if f.isempty(opts.colors.path) then
         hl_winbar_path = 'MsgArea'
     else
-        vim.api.nvim_set_hl(0, hl_winbar_path, { fg = opts.colors.path })
+        vim.api.nvim_set_hl(0, hl_winbar_path, { fg = opts.colors.path, bg = "NONE" })
     end
 
     if f.isempty(opts.colors.file_name) then
         hl_winbar_file = 'String'
     else
-        vim.api.nvim_set_hl(0, hl_winbar_file, { fg = opts.colors.file_name })
+        vim.api.nvim_set_hl(0, hl_winbar_file, { fg = opts.colors.file_name, bg = "NONE" })
     end
 
     if f.isempty(opts.colors.symbols) then
         hl_winbar_symbols = 'Function'
     else
-        vim.api.nvim_set_hl(0, hl_winbar_symbols, { fg = opts.colors.symbols })
+        vim.api.nvim_set_hl(0, hl_winbar_symbols, { fg = opts.colors.symbols, bg = "NONE" })
     end
 end
 
